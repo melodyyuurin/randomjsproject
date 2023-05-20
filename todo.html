@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: grey;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            gap: 10px;
+        }
+
+        #taskList {
+            list-style-type: none;
+        }
+
+        #taskList li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        #taskList input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+
+        <h1>TODO</h1>
+
+        <div>
+            <input id="taskInput" type="text" placeholder="Enter task...">
+            <button id="addButton">add</button>
+        </div>
+
+        <ul id="taskList"></ul>
+
+    </div>
+
+    <script>
+        var button = document.getElementById('addButton');
+
+        button.addEventListener('click', function() {
+            var input = document.getElementById('taskInput');
+            var task = input.value;
+
+            if (task.trim() !== '') {
+                var listItem = document.createElement('li');
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                listItem.appendChild(checkbox);
+                var label = document.createElement('label');
+                label.textContent = task;
+                listItem.appendChild(label);
+
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        label.style.textDecoration = 'line-through';
+                    } else {
+                        label.style.textDecoration = 'none';
+                    }
+                });
+
+                var taskList = document.getElementById('taskList');
+                taskList.appendChild(listItem);
+
+                input.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
